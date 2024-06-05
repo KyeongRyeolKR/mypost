@@ -24,8 +24,8 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .oauth2Login(
                         oauth2Login -> oauth2Login
-                                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(customOAuth2UserService))
                                 .loginPage("/users/login")
+                                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(customOAuth2UserService))
                 )
                 .logout(
                         logout -> logout
@@ -33,7 +33,7 @@ public class SecurityConfig {
                                 .logoutSuccessUrl("/")
                 )
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/users/login").permitAll()
+                        .requestMatchers("/", "/users/login", "/error/**").permitAll()
                         .anyRequest().authenticated()
                 );
 
